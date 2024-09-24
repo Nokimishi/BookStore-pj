@@ -1,0 +1,45 @@
+{% load static %}
+<div class="container-fluid d-flex justify-content-around p-4 bg-secondary">
+  <a class="navbar-brand text-light" href="#">
+    <img src="{% static 'bst.png' %}" alt="" class="navbar-logo">
+  </a>
+      <button class="navbar-toggler" type="button" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  <div class="script" >
+    <form method="GET" action="/book/list/" class="d-flex">
+      <input required name="search" class="form-control me-2" type="search" placeholder="Search">
+      <button class="btn btn-outline-light" type="submit">Search</button>
+    </form>
+  </div>
+  <div class="relative" onClick="window.location='/book/cartList/';">
+    <img id="cart-icon" src="{% static 'cart.png' %}">
+    <p id="cart-total">{{ count }}</p>
+  </div>
+</div>
+<nav class="navbar navbar-expand-lg mb-5 sticky-top sticky-blurred">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+      <div class="ls navbar-nav ps-5">
+        <a class="nav-link px-4 " aria-current="page" href="/book/home">HOME</a>
+        <a class="nav-link px-4" href="/book/list">BOOKS</a>
+        <a class="nav-link px-4" href="/book/contact">Contact </a> 
+        
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"></a>
+      {% if user.is_authenticated %}
+        <a class="nav-link px-4" href="/profile">Profile </a>
+      {% else %}
+      <div class="nv navbar-nav" style="padding-left:550px;">
+        <a class="nav-link px-4" href="/login">Login</a>
+        <a class="nav-link px-4" href="/register">Register</a>
+      <div>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+

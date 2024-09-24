@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Book order list
+{% endblock title %}
+
+
+{% block body %}
+
+<div class="bg-light">
+  <div class="container my-5 py-4 bg-white shadow">
+    <h1 class="text-primary display-4 mb-4 text-center">My Order List</h1>
+    <div class="row">
+      {% for o in orders %}
+      <div class="col-12">
+        <div class="order-card">
+          <div class="d-flex justify-content-end align-items-center mb-3">
+            <a href="/book/orderDelete/{{o.id}}" class="btn btn-delete">Delete</a>
+          </div>
+          <h3>Date: <span class="fw-bold">{{o.created_at}}</span></h3>
+          <h3>Name: <span class="fw-bold">{{o.name}}</span></h3>
+          <h3>Phone: <span class="fw-bold">{{o.phone}}</span></h3>
+          <h3>Address: <span class="fw-bold">{{o.address}}</span></h3>
+          <h2>Status: <span class="fw-bold">{{o.status}}</span></h2>
+          <table class="table table-striped order-table mt-3">
+            <thead class="table-light">
+              <tr>
+                <th scope="col" class="fw-bold">No.</th>
+                <th scope="col" class="fw-bold">Image</th>
+                <th scope="col" class="fw-bold">Name</th>
+                <th scope="col" class="fw-bold">Price</th>
+                <th scope="col" class="fw-bold">Qty</th>
+                <th scope="col" class="fw-bold">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for p in o.product %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td><img src="{{p.image}}" alt="Product Image" class="img-fluid"></td>
+                <td>{{p.name}}</td>
+                <td>{{p.price|floatformat:0}} Ks</td>
+                <td>{{p.qty}}</td>
+                <td>{{p.total|floatformat:0}} Ks</td>
+              </tr>
+              {% endfor %}
+              <tr>
+                <td colspan="3"></td>
+                <td class="fw-bold">Total</td>
+                <td class="fw-bold">{{o.total_qty}}</td>
+                <td class="fw-bold">{{o.total_price|floatformat:0}} Ks</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock body %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}
+    Book Contact
+{% endblock  %}
+
+{% block body %}
+        <div class="contact-page section">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-6 align-self-center mb-4">
+                  <div class="left-text">
+                    <div class="section-heading">
+                      <h6>Contact Us</h6>
+                      <h2>Hello!</h2>
+                    </div>
+                    <p>Go Pre-Order Buy & Get Best Prices For You!</p>
+                    <ul>
+                      <li><span>Address</span> Yangon,Ahlone Township</li>
+                      <li><span>Phone</span> 09424162523</li>
+                      <li><span>Email</span> kaung@gmail.com</li>
+                    </ul><br><br>
+                    <a href="https://www.facebook.com/"><i class="fa-brands fa-facebook fa-beat-fade fa-2xl"></i></a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="https://twitter.com/"><i class="fa-brands fa-twitter fa-beat-fade fa-2xl"></i></a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="https://www.instagram.com/"><i class="fa-brands fa-instagram fa-beat-fade fa-2xl"></i></a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="https://www.youtube.com/"><i class="fa-brands fa-youtube fa-beat-fade fa-2xl"></i></a>
+                  </div>
+                </div>
+        
+                <div class="col-lg-6">
+                  <div class="right-content">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div id="map">
+                          
+                          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14419.156409095423!2d96.13321394119241!3d16.81935372452001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c195cb45d53d97%3A0xfc46de3d4f2e4df7!2sPage%20Myanmar(Web%20Engineer%2C%20Programming%20On%20Job%20Training)!5e0!3m2!1sen!2smm!4v1704893667380!5m2!1sen!2smm" width="100%" height="325px" frameborder="0" style="border:0; border-radius: 23px;" allowfullscreen=""></iframe>
+                        </div>
+                      </div>
+                      {% if user.is_authenticated %}
+                        <div class="col-lg-12">
+                          <form  action="{% url 'contact' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <fieldset>
+                                  <input  type="text" name="name" id="name"  placeholder="Name..." required>
+                                </fieldset>
+                              </div>
+                              <div class="col-lg-6">
+                                <fieldset>
+                                  <input type="text" name="ph" id="phone" placeholder="Phone Number.." autocomplete="on" required>
+                                </fieldset>
+                              </div>
+                              
+                              <div class="col-lg-12">
+                                <fieldset>
+                                  <textarea name="msg" id="message" name="msg" placeholder="Your Message" required></textarea>
+                                </fieldset>
+                              </div>
+                              <div class="col-lg-12">
+                                <fieldset>
+                                  <button type="submit" name="send" id="form-submit" class="orange-button btn1">Send Message Now   <i class="fa-solid fa-paper-plane fa-lg" style="color: #74C0FC;"></i></button> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+                                  <button type="reset"  class="orange-button btn2">Cancel  <i class="fa-solid fa-rectangle-xmark fa-lg" style="color: #FFD43B;"></i></button>
+                                </fieldset>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      {% else %}
+                      <div class="col-lg-12">
+                        <p class="text-secondary text-capitalize fs-4 fw-bold">If you want to feedback. Please login!</p>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+{% endblock body %}

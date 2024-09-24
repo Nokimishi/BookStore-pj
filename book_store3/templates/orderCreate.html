@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Book order create
+{% endblock title %}
+
+
+{% block body %}
+
+<div class="bg-light">
+    <div class="container my-5 py-4 bg-white shadow">
+        <h1 class="text-primary display-4 mb-4">Order</h1>
+
+        <form method="POST" class="row g-3">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <label for="name" class="form-label">Name</label>
+                <input name="name" type="text" class="form-control" id="name" placeholder="Your Name" required>
+            </div>
+            <div class="col-md-6">
+                <label for="phone" class="form-label">Phone</label>
+                <input name="phone" type="tel" class="form-control" id="phone" placeholder="09*******" required>
+            </div>
+            <div class="col-12">
+                <label for="address" class="form-label">Address</label>
+                <input name="address" type="text" class="form-control" id="address" required>
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="bg-light">ID</th>
+                        <th class="bg-light">Image</th>
+                        <th class="bg-light">Name</th>
+                        <th class="bg-light">Price</th>
+                        <th class="bg-light">Qty</th>
+                        <th class="bg-light">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><img src="{{product.image.url}}" style="height:80px;width:100px;" alt="Product Image" class="img-fluid rounded"></td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.price | floatformat:0}}</td>
+                        <td>{{product.qty}}</td>
+                        <td>{{product.total | floatformat:0}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button type="submit" class="btn btn-success">Order</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock body %}

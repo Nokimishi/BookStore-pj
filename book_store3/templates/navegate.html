@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Book Navigate
+{% endblock title %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h3 class="card-title">Book Type</h3>
+                    <div class="category-buttons mt-4">
+                        <form method="GET" action="/book/list/">
+                            {% if cat %}
+                                {% for c in cat %}
+                                    <button name="category" value="{{c.id}}" type="submit" class="btn  category-button">{{c.name}}</button>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-muted">No categories available</p>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h3 class="card-title">Language</h3>
+                    <div class="category-buttons mt-4">
+                        <form method="GET" action="/book/list/">
+                            {% if lag %}
+                                {% for l in lag %}
+                                    <button name="language" value="{{l.id}}" type="submit" class="btn category-button">{{l.name}}</button>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-muted">No Language available</p>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h3 class="card-title">Author</h3>
+                    <div class="category-buttons mt-4">
+                        <form method="GET" action="/book/list/">
+                            {% if aut %}
+                                {% for a in aut %}
+                                    <button name="bookauthor" value="{{a.id}}" type="submit" class="btn  category-button">{{a.name}}</button>
+                                {% endfor %}
+                            {% else %}
+                                <p class="text-muted">No Author available</p>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}

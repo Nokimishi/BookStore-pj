@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% load custom_tags %}
+{% load static %}
+
+{% block title %}
+book detail
+{% endblock title %}
+
+{% block body %}
+<section class="bg-light">
+    <div class="container pb-5">
+        <div class="row bd">
+            <div class="section-title-5 mb-5 d-flex">
+                <h2>Books Details</h2>
+                {% if user.is_authenticated %}
+                    <div class="be d-flex align-self-center">
+                        {% if user|has_perm:'b_store.change_post' %}
+                            <a href="/book/edit/{{ p.id }}" class="me-2">
+                                <button class="btn1">Edit&nbsp;<i class="fa-solid fa-plus" style="color: #74C0FC;"></i></button>
+                            </a>
+                        {% endif %}
+                        {% if user|has_perm:'b_store.delete_post' %}
+                            <a href="/book/delete/{{ p.id }}">
+                                <button class="btn2">Delete&nbsp;</button>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-5 mt-5">
+            {% if p.image %}
+                <div class="card mb-3">
+                    <img class="card-img img-fluid rounded-3" src="{{p.image.url}}"  alt="{{p.image}}" style="height:400px;" id="product-detail">
+                </div>
+            {% else %}
+                <img src="http://localhost:8000/media/R.png" class="card-img-top rounded-3" style="height:300px;">
+            {% endif %}
+            </div>
+            <!-- col end -->
+            <div class="col-lg-7 mt-5">
+                <div class="card shadow">
+                <form id="myForm" method="GET" >
+                    {% csrf_token %}
+                    <div class="card-body">
+                        <h1 class="h2">Title:{{p.name}}</h1>
+                        <p class="h4 py-2">Price: {{p.price | floatformat:0}}Ks</p>
+                        <ul class="list-inline mb-2">
+                            <li class="list-inline-item">
+                                <h6>Type:</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-muted"><strong>{{p.category}}</strong></p>
+                            </li>
+                        </ul>
+                        <ul class="list-inline mb-2">
+                            <li class="list-inline-item">
+                                <h6>Genre:</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-muted"><strong>{{p.genre}}</strong></p>
+                            </li>
+                        </ul>
+                        <h6>Description:</h6>
+                        <p>{{p.content|linebreaks}}</p>
+                        <ul class="list-inline mb-2 mt-3">
+                            <li class="list-inline-item">
+                                <h6>Language:</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-muted"><strong>{{p.language}}</strong></p>
+                            </li>
+                        </ul>
+
+                        <ul class="list-inline mb-3">
+                            <li class="list-inline-item">
+                                <h6>Author:</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-muted"><strong>{{p.bookauthor}}</strong></p>
+                            </li>
+                        </ul>
+                            <input type="hidden" name="product-title" value="Activewear">
+                            <div class="row mb-3">
+                                <div class="col-auto">
+                                    <ul class="list-inline pb-3">
+                                        <li class="list-inline-item text-right">
+                                            Quantity
+                                            
+                                        </li>  
+                                        <input type="number" class="w-20" name="qty" value="1" min="1" max="10"/>    
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row pb-3">
+                                {% if user.is_authenticated %}
+                                    <div class="col d-grid">
+                                        <button onclick="summitForm('buynow')" type="submit" class="btn btn-success btn-lg" name="buy" value="addtocart">BUY</button>
+                                    </div>
+                            
+                                    <div class="col d-grid">
+                                        <button onclick="summitForm('addtocart')" type="submit" class="btn btn-success btn-lg">Add To Cart</button>
+                                    </div>
+                                {% else %}
+                                    <div class="col d-grid">
+                                        <a href="{% url 'login' %}" class="btn btn-success btn-lg ">Login to Buy</a>
+                                    </div>
+                                    <div class="col d-grid">
+                                        <a href="{% url 'login' %}" class="btn btn-success btn-lg">Login to Add to Cart</a>
+                                    </div>
+                                {% endif %}
+                            </div>  
+                    </div>
+                </form>
+                <script>
+                    function summitForm(action){
+                        form = document.getElementById('myForm')
+                        if(action === 'buynow'){
+                            form.action = "/book/buyNow/{{p.id}}/"
+                        }
+                        else if(action === 'addtocart'){
+                            form.action = "/book/cartCreate/{{p.id}}/"
+                        }
+                    }
+                </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Close Content -->
+{% endblock body %}

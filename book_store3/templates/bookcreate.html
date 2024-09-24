@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Book Create
+{% endblock title %}
+
+{% block body %}
+    <div class="container">
+        <div class="section-title-5 mb-5 text-center text-decoration-underline">
+            <h2>Books Create</h2>
+        </div>
+        <form  method="POST" class="bcf shadow p-3" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="mb-3">
+              <label  class="form-label">Title</label>
+              <input type="text" name="name" class="form-control" >
+            </div>
+            <div class="mb-3">
+              <label  class="form-label">Content</label>
+              <textarea name="content" required style="height:100px;" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Image</label>
+                <input name="image"  type="file" class="form-control"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select class="form-control" required name="category">
+                    {% for c in category %}
+                        <option value="{{c.id}}">{{c.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Genre</label>
+                <input type="text" name="genre" class="form-control" >
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Language</label>
+                <select class="form-control" required name="language">
+                    {% for l in language %}
+                        <option value="{{l.id}}">{{l.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">BookAuthor</label>
+                <select class="form-control" required name="bookauthor">
+                    {% for b in bookauthor %}
+                        <option value="{{b.id}}">{{b.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Price</label>
+                <input type="number" name="price" required class="form-control">
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Quantity</label>
+                <input type="number" name="quantity" required class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">ADD</button>
+            <button type="reset" class="btn btn-primary">Cancel</buttton>
+        </form>
+    </div>
+{% endblock body %}

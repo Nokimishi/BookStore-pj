@@ -1,0 +1,50 @@
+{% load static %}
+<html>
+    <head>
+        <title>
+            Bookstore | Login
+        </title>
+        <!-- bootstraps -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <!-- Css -->
+        <link href=" {% static 'style.css' %} " rel="stylesheet" />
+        <link href=" {% static 'main.css' %} " rel="stylesheet" />
+
+        <!-- Font awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    </head>
+    <body>
+        {% include "header.html" %}
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissible fade show m-3" role="alert"> 
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> 
+                </div>
+            {% endfor %} 
+        {% endif %}
+        <div class="container">
+            <form method="POST" class="card shadow p-3 mx-auto mt-5" style="width:500px;">
+                {% csrf_token %}
+                <img src="{% static 'p.jpg' %}" class="img"/>
+                <h2> Login </h2>
+                <div class="mb-3">
+                    <label class="form-label">User Name</label>
+                    <input name="username" required type="text" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input name="password" required type="password" class="form-control"/>
+                </div>
+                <a href="/register" class="mb-2"> Register? </a>
+                <a href="{% url 'forgot_password' %}" class="mb-2"> Forgot Password! </a>
+                <button type="submit" class="btn btn-primary">Login</button>
+               
+               
+            </form>
+        </div>
+        {% include "footer.html" %}
+    </body>
+</html>

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Book cart list
+{% endblock title %}
+
+
+{% block body %}
+<div class="container">
+  <div class="bg-gray-100 font-sans">
+      <div class="container mx-auto my-10 p-8 bg-white shadow-md">
+          <h1 class="text-3xl font-bold mb-8">Shopping Cart</h1>
+          <div class="row"> <!-- Use Bootstrap row class -->
+              <div class="col-lg-12">
+                  {% if cart %}
+                  <div class="box-element mt-5 mb-5 text-center ">
+                      <div class="cart-row row "> <!-- Add row class here -->
+                          <div class="col-2 "><strong>Item</strong></div>
+                          <div class="col-2 "><strong>Name</strong></div> <!-- Use Bootstrap col classes -->
+                          <div class="col-2"><strong>Price</strong></div>
+                          <div class="col-1"><strong>Quantity</strong></div>
+                          <div class="col-3"><strong>Total</strong></div>
+                          <div class="col-1"><strong>Remove</strong></div>
+                      </div>
+                      {% for c in cart %}
+                      <div class="cart-row row "> <!-- Add row class here -->
+                          <div class="col-2"><img class="row-image" src="{{c.product.image.url}}" style="height:80px;width:100px;"></div>
+                          <div class="col-2 "><p>{{c.product.name }}</p></div>
+                          <div class="col-2 "><p>{{c.product.price | floatformat:0}} Ks</p></div>
+                          <div class="col-1">
+                              <p>{{c.qty}}</p>
+                          </div>
+                          <div class="col-3"><p>{{c.total | floatformat:0}} Ks</p></div>
+                          <div class="col-1"><a href="/book/cartDelete/{{c.id}}">Remove</a></div>
+                      </div>
+                      {% endfor %}
+                  </div>
+                  {% else %}
+                  <div class="flex flex-row bg-gray-200 p-4 rounded-md my-5">
+                      <h2 class="text-lg font-bold ml-8 mr-20 w-50">Nothing in Your Cart!</h2>
+                      <a href="/book/list/" class="bg-red-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">See Products</a>
+                  </div>
+                  {% endif %}
+              </div>
+          </div>
+          {% if cart %}
+          <form method="POST" action="/book/cartOrderCreate/" class="container mx-auto my-10 p-8 bg-white shadow-md">
+              {% csrf_token %}
+              <div class="row g-3"> <!-- Use Bootstrap grid system -->
+                  <div class="col-md-6">
+                      <label class="form-label">Name</label>
+                      <input name="name" type="text" placeholder="Jane Doe" required class="form-control">
+                  </div>
+                  <div class="col-md-6">
+                      <label class="form-label">Phone</label>
+                      <input name="phone" type="number" placeholder="09*******" required class="form-control">
+                  </div>
+                  <div class="col-12">
+                      <label class="form-label">Address</label>
+                      <input name="address" type="text" required class="form-control">
+                  </div>
+              </div>
+              <button type="submit" class="mt-4 btn btn-success">Order</button>
+          </form>
+          {% endif %}
+      </div>
+  </div>
+</div>
+
+
+
+
+{% endblock body %}
